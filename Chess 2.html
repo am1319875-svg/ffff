@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Abdelaziz - FIDE Profile</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid #333333;
+            position: relative;
+        }
+
+        .header h2 {
+            font-size: 22px;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .fide-id {
+            color: #aaaaaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .ratings-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rating-box {
+            flex: 1;
+            background-color: #262626;
+            border-radius: 10px;
+            padding: 12px 6px;
+            border: 1px solid #3a3a3a;
+        }
+
+        .rating-title {
+            font-size: 11px;
+            color: #888888;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .rating-value {
+            font-size: 13px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        .info-section {
+            background-color: #222222;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: left;
+            border: 1px solid #333333;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #2d2d2d;
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #888888;
+        }
+
+        .info-val {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .edit-btn {
+            margin-top: 15px;
+            background-color: #262626;
+            color: #888888;
+            border: 1px solid #444;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .edit-btn:active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <h2>Abdelaziz Mohamed, Adam</h2>
+            <p class="fide-id">FIDE ID: 555034942</p>
+        </div>
+
+        <div class="ratings-grid">
+            <div class="rating-box">
+                <div class="rating-title">STANDARD</div>
+                <div class="rating-value" id="std-rating">Not rated</div>
+            </div>
+            <div class="rating-box">
+                <div class="rating-title">RAPID</div>
+                <div class="rating-value" id="rapid-rating">Not rated</div>
+            </div>
+            <div class="rating-box">
+                <div class="rating-title">BLITZ</div>
+                <div class="rating-value" id="blitz-rating">Not rated</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-row">
+                <span class="info-label">Federation</span>
+                <span class="info-val">🇪🇬 Egypt</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">B-Year</span>
+                <span class="info-val">2012</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Gender</span>
+                <span class="info-val">Male</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">FIDE Title</span>
+                <span class="info-val" id="fide-title">None</span>
+            </div>
+        </div>
+
+        <button class="edit-btn" onclick="openAdminPanel()">⚙️ تعديل البيانات</button>
+    </div>
+
+    <script>
+        const ADMIN_PIN = "1440";
+
+        window.onload = function() {
+            if (localStorage.getItem("std_val")) {
+                document.getElementById("std-rating").innerText = localStorage.getItem("std_val");
+            }
+            if (localStorage.getItem("rapid_val")) {
+                document.getElementById("rapid-rating").innerText = localStorage.getItem("rapid_val");
+            }
+            if (localStorage.getItem("blitz_val")) {
+                document.getElementById("blitz-rating").innerText = localStorage.getItem("blitz_val");
+            }
+            if (localStorage.getItem("fide_title_val")) {
+                document.getElementById("fide-title").innerText = localStorage.getItem("fide_title_val");
+            }
+        };
+
+        function openAdminPanel() {
+            const userPin = prompt("أدخل الرقم السري للتعديل:");
+            
+            if (userPin === ADMIN_PIN) {
+                const newStd = prompt("أدخل تقييم Standard الجديد:");
+                const newRapid = prompt("أدخل تقييم Rapid الجديد:");
+                const newBlitz = prompt("أدخل تقييم Blitz الجديد:");
+                const newTitle = prompt("أدخل FIDE Title الجديد (مثل: CM, FM, None):");
+
+                if (newStd !== null && newStd !== "") {
+                    document.getElementById("std-rating").innerText = newStd;
+                    localStorage.setItem("std_val", newStd);
+                }
+                if (newRapid !== null && newRapid !== "") {
+                    document.getElementById("rapid-rating").innerText = newRapid;
+                    localStorage.setItem("rapid_val", newRapid);
+                }
+                if (newBlitz !== null && newBlitz !== "") {
+                    document.getElementById("blitz-rating").innerText = newBlitz;
+                    localStorage.setItem("blitz_val", newBlitz);
+                }
+                if (newTitle !== null && newTitle !== "") {
+                    document.getElementById("fide-title").innerText = newTitle;
+                    localStorage.setItem("fide_title_val", newTitle);
+                }
+
+                alert("تم تحديث البيانات بنجاح! ✨");
+            } else if (userPin !== null) {
+                alert("عفواً، الرقم السري غير صحيح!");
+            }
+        }
+
+        // كود حفظ الصفحة للعمل بدون إنترنت (Service Worker)
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                self.addEventListener('install', e => {
+                    e.waitUntil(
+                        caches.open('fide-cache').then(cache => {
+                            return cache.addAll(['./']);
+                        })
+                    );
+                });
+                self.addEventListener('fetch', e => {
+                    e.respondWith(
+                        caches.match(e.request).then(response => {
+                            return response || fetch(e.request);
+                        })
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(() => {});
+        }
+    </script>
+
+</body>
+</html>
